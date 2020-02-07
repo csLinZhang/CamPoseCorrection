@@ -1,0 +1,173 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>Online Correction of Camera Poses for the Surround-view System</title>
+<style>
+<!--
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif"}
+ table.MsoNormalTable
+	{mso-style-parent:"";
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif"}
+-->
+</style>
+</head>
+
+<body>
+
+<table class="MsoNormalTable" border="0" cellpadding="0" width="1217" id="table3" height="35">
+	<tr>
+		<td valign="top" style="width: 1211px; height: 31px; padding: .75pt" align="left">
+		<p class="text">
+		<b style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;, serif; font-size: 13.3333px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: -webkit-left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+		<font face="Calibri" size="5" color="#0000FF">Online Correction of 
+		Camera Poses for the Surround-view System: A Sparse Direct Approach</font></b></p>
+		<p class="text"><span lang="en-us">
+		<font face="Calibri" size="4" color="#0000FF">Lin Zhang, Tianjun Zhang, and Shengjie Zhao, 
+		School of Software Engineering, Tongji University, China</font></span><p class="text">
+		<span lang="en-us"><font face="Calibri" size="4" color="#0000FF">Xiao 
+		Liu, College of Information and Computer Sciences, University of 
+		Massachusetts Amherst, USA</font></span><p class="text">
+		<span lang="en-us"><font face="Calibri" size="4" color="#0000FF">Yicong 
+		Zhou, Department of Computer and Information Science, University of 
+		Macau, Macau, China</font></span></td>
+	</tr>
+</table>
+<hr>
+<p><span lang="en-us"><b><font face="Calibri" size="5">Introduction</font></b></span></p>
+<p>
+<span lang="EN-US" style="color: windowtext; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; font-size: 13pt; font-family: Calibri;">
+This is the website of our project &quot;Online Correction of Camera Poses for 
+the Surround-view System: A Sparse Direct Approach&quot;</span><span lang="en-us" style="color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; font-family: Calibri; font-size: 13pt;">.</span><span lang="en-us"><font face="Calibri" style="font-size: 13pt"><br>
+<br>
+The surround-view system is an indispensable component of a modern ADAS system. 
+It assists the drivers to monitor the road condition around the vehicle and to 
+make better decisions. A typical surround-view system consists of four to six 
+fisheye cameras. By calibrating the intrinsics and extrinsics of the system 
+accurately, a top-down surround-view can be generated from raw fisheye images. 
+However, poses of these cameras sometimes change due to bumps, collisions 
+orchanges of tire pressure while driving. If poses' representations are not 
+updated accordingly, observable geometric misalignment will appear in the 
+generated surround-view image. At present, when the geometric misalignment 
+appears, drivers have to drive to 4S stores for re-calibration. How to correct 
+camera poses of the system online without re-calibration is still an open issue. 
+To settle this problem, we introduce the sparse direct framework into the camera 
+pose calibration field and propose a novel optimization scheme of a cascade 
+structure. By minimizing the photometric errors in overlapping regions of 
+adjacent bird‘s-eye-view images, our method can correct the misalignment of the 
+surround-view image online and can obtain high-precision camera poses without 
+re-calibration. This method is actually composed of two levels of optimization. 
+The first level of optimization is faster, but it suffers from the loss of DOF. 
+When the first-level optimization does not perform satisfactorily, we need the 
+second-level optimization to compensate for the lost DOF. Experiments show that 
+our method can effectively eliminate the misalignment caused by cameras‘ 
+moderate pose changes in the surround-view system. More importantly, our online 
+camera pose correction scheme relies totally on minimizing photometric errors 
+without the need for additional physical equipments or calibration sites. 
+Therefore, it can be easily integrated into pipelines of existing surround-view 
+systems to improve their robustness and stability.</font></span></p>
+<hr>
+<p><span lang="en-us"><b><font face="Calibri" size="5">Main idea of the proposed 
+approach</font></b></span></p>
+<p><img border="0" src="flowchart.jpg" width="1010" height="417"></p>
+<ol>
+	<li><font style="font-size: 13pt" face="Calibri">The optimization objective 
+	of the proposed scheme is to minimize the photometric errors of the 
+	common-view areas between adjacent bird's-eye-views. In order to make it 
+	work, the user only needs to park the vehicle in a normal flat field with 
+	relatively rich textures. Except for this requirement, it does not require 
+	any other additional physical tools or special calibration sites. Hence, it 
+	can be seen that the proposed scheme has the advantage of being easy to use 
+	and having fewer requirements on the conditions of the operating site. 
+	Therefore, it is suitable for ordinary non-professional end-users.</font></li>
+	<li><font style="font-size: 13pt" face="Calibri">Instead of re-calibration, 
+	our scheme makes full use of initial camera poses of the calibrated 
+	surround-view system, making the optimization process converge quickly. 
+	Meanwhile, such a strategy also helps guarantee the high accuracy of the 
+	correction results.</font></li>
+	<li><font style="font-size: 13pt" face="Calibri">Our scheme follows a sparse 
+	direct framework, implying that it does not depend on visual feature points 
+	and thus requires less on its working conditions. Within the sparse direct 
+	framework, a novel pixel selection strategy is proposed, with which noise 
+	and unmatched objects between images captured by adjacent cameras can be 
+	eliminated effectively. Photometric errors are then only computed on the 
+	selected positions. Such a pixel selection strategy can effectively improve 
+	the whole pipeline's speed and robustness.</font></li>
+	<li><font style="font-size: 13pt" face="Calibri">The proposed scheme 
+	actually is of a cascade structure, comprising two different models, the 
+	``ground model'' and the ``ground-camera model''. The ground model is 
+	simpler and more efficient than the ground-camera model, but it suffers from 
+	the loss of DOF (degree of freedom), which the ground-camera model does not 
+	have. In actual use, our scheme first tries to use the ground model. If it 
+	does not work satisfactorily, the scheme switches to the ground-camera 
+	model, which is theoretically more sophisticated and effective.</font></li>
+</ol>
+<hr>
+<p><span lang="en-us"><b><font face="Calibri" size="5">Sample Results</font></b></span></p>
+<p>　</p>
+<hr>
+<p><span lang="en-us"><b><font face="Calibri" size="5">Source Codes</font></b></span></p>
+<p><span lang="en-us"><font face="Calibri" style="font-size: 13pt">1.
+<a href="Online_Correction.zip">Online_Correction.zip</a></font></span></p>
+<p><span lang="en-us"><font face="Calibri" style="font-size: 13pt">This is the 
+code of the proposed online cameras' poses correction approach for the 
+surround-view system. To run the code, read the following notes:</font></span></p>
+<p><span lang="en-us"><font face="Calibri" style="font-size: 13pt">1) 
+Prerequisites<br>
+We have tested the code with Ubuntu 14.04, but it should be easy to compile in 
+other platforms.<br>
+<br>
+C++11 or C++0x Compiler<br>
+We use the new thread and chrono functionalities of C++11.<br>
+<br>
+OpenCV<br>
+We use OpenCV to manipulate images and features. Download and install 
+instructions can be found at: http://opencv.org. We use 3.4.1, but it should 
+also work for other versions higher than 3.0.<br>
+<br>
+Eigen3<br>
+Download and install instructions can be found at: http://eigen.tuxfamily.org.<br>
+<br>
+g2o<br>
+We use g2o library to perform non-linear optimizations. More info can be found 
+in http://openslam.org/g2o.html.<br>
+<br>
+Sophus<br>
+It's an Lie algebra library. More info can be found in https://strasdat.github.io/Sophus/.<br>
+<br>
+2) Building the project<br>
+We use CMake to build the project on ubuntu 14.04.<br>
+<br>
+cd Online_Correction/<br>
+mkdir build<br>
+cd build<br>
+cmake ..<br>
+make<br>
+cd ..<br>
+There has been no rules for &quot;make install&quot; yet, so if you want to use the 
+library in other project, maybe you can copy the headers and the lib file to 
+system path by hand.<br>
+<br>
+3) Run the project<br>
+After compile and build the project, some executable files will be stored in the 
+./bin/ .<br>
+<br>
+We have prepared one test sample set. For the version without pixel selection:<br>
+./bin/pose_adjustment_v2<br>
+<br>
+For the version which follows a sparse direct framework:<br>
+./bin/pose_adjustment_v3<br>
+<br>
+After an image appears, press enter to see the whole optimization process.</font></span></p>
+<hr>
+<p align="justify"><font face="Calibri">Last update: <span lang="en-us">Feb. 7,
+</span>2020&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></p>
+
+</body>
+
+</html>
