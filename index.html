@@ -28,7 +28,7 @@
 		<font face="Calibri" size="5" color="#0000FF">Online Correction of 
 		Camera Poses for the Surround-view System: A Sparse Direct Approach</font></b></p>
 		<p class="text"><span lang="en-us">
-		<font face="Calibri" size="4" color="#0000FF">Lin Zhang, Tianjun Zhang, and Shengjie Zhao, 
+		<font face="Calibri" size="4" color="#0000FF">Tianjun Zhang, Hao Deng, Lin Zhang and Shengjie Zhao, 
 		School of Software Engineering, Tongji University, China</font></span><p class="text">
 		<span lang="en-us"><font face="Calibri" size="4" color="#0000FF">Xiao 
 		Liu, College of Information and Computer Sciences, University of 
@@ -45,7 +45,7 @@
 This is the website of our project &quot;Online Correction of Camera Poses for 
 the Surround-view System: A Sparse Direct Approach&quot;</span><span lang="en-us" style="color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; font-family: Calibri; font-size: 13pt;">.</span><span lang="en-us"><font face="Calibri" style="font-size: 13pt"><br>
 <br>
-The surround-view system is an indispensable component of a modern ADAS system. 
+The surround-view system is an indispensable component of a modern advanced driving assistance system. 
 It assists the drivers to monitor the road condition around the vehicle and to 
 make better decisions. A typical surround-view system consists of four to six 
 fisheye cameras. By calibrating the intrinsics and extrinsics of the system 
@@ -54,7 +54,7 @@ However, poses of these cameras sometimes change due to bumps, collisions
 orchanges of tire pressure while driving. If poses' representations are not 
 updated accordingly, observable geometric misalignment will appear in the 
 generated surround-view image. At present, when the geometric misalignment 
-appears, drivers have to drive to 4S stores for re-calibration. How to correct 
+appears, drivers have to drive to  auto service stores for re-calibration. How to correct 
 camera poses of the system online without re-calibration is still an open issue. 
 To settle this problem, we introduce the sparse direct framework into the camera 
 pose calibration field and propose a novel optimization scheme of a cascade 
@@ -62,7 +62,7 @@ structure. By minimizing the photometric errors in overlapping regions of
 adjacent birds-eye-view images, our method can correct the misalignment of the 
 surround-view image online and can obtain high-precision camera poses without 
 re-calibration. This method is actually composed of two levels of optimization. 
-The first level of optimization is faster, but it suffers from the loss of DOF. 
+The first level of optimization is faster, but it suffers from the loss of degree of freedom. 
 When the first-level optimization does not perform satisfactorily, we need the 
 second-level optimization to compensate for the lost DOF. Experiments show that 
 our method can effectively eliminate the misalignment caused by moderate camera pose changes in the surround-view system. More importantly, our online 
